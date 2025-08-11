@@ -74,8 +74,20 @@ The MCP server supports OAuth 2.0 authentication with WHOOP. Here's how to authe
 
 1. **Get Authorization URL**: Use the `whoop-get-authorization-url` tool to get the OAuth URL
 2. **User Authorization**: Direct users to the authorization URL
-3. **Exchange Code**: Use the `whoop-exchange-code-for-token` tool with the authorization code
-4. **Set Access Token**: Use the `whoop-set-access-token` tool to set the access token for API calls
+3. **Copy Authorization Code**: When WHOOP redirects you back, copy the authorization code from the URL
+4. **Share Code with Claude**: **IMPORTANT** - You must copy and paste the authorization code directly to Claude in the chat
+5. **Exchange Code**: Claude will use the `whoop-exchange-code-for-token` tool with the authorization code
+6. **Set Access Token**: Claude will use the `whoop-set-access-token` tool to set the access token for API calls
+
+### ⚠️ Important Note About Authorization Codes
+
+When you complete the WHOOP authorization in your browser, you'll be redirected to a URL that contains an authorization code. **You must copy this code and paste it directly into your chat with Claude**. The code will look something like this in the URL:
+
+```
+http://localhost:3000/callback?code=ABC123XYZ789&scope=read:recovery%20read:cycles...
+```
+
+Copy the `code` parameter value (e.g., `ABC123XYZ789`) and paste it in your chat with Claude. Claude will then use this code to exchange it for an access token and set up the connection to your WHOOP data.
 
 ## Available Tools
 
