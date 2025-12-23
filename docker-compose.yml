@@ -1,0 +1,23 @@
+services:
+  whoop-mcp-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: whoop-mcp-server
+    environment:
+      # WHOOP API Configuration
+      - WHOOP_CLIENT_ID=${WHOOP_CLIENT_ID}
+      - WHOOP_CLIENT_SECRET=${WHOOP_CLIENT_SECRET}
+      - WHOOP_REDIRECT_URI=${WHOOP_REDIRECT_URI:-http://localhost:3000/callback}
+      # MCP Server Configuration
+      - MCP_SERVER_PORT=${MCP_SERVER_PORT:-3001}
+    # Use stdin/stdout for MCP communication
+    stdin_open: true
+    tty: true
+    # Optionally expose a port if needed (not required for stdio-based MCP)
+    # ports:
+    #   - "3001:3001"
+    restart: unless-stopped
+    # Mount a volume for persisting any data if needed
+    volumes:
+      - ./data:/app/data

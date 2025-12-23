@@ -230,6 +230,56 @@ For detailed information about the WHOOP API, visit:
 
 MIT License - see LICENSE file for details.
 
+## Docker Setup
+
+### Quick Start with Docker
+
+1. **Configure Environment**
+
+   Edit `.env` with your WHOOP API credentials:
+   ```bash
+   WHOOP_CLIENT_ID=your_actual_client_id
+   WHOOP_CLIENT_SECRET=your_actual_client_secret
+   WHOOP_REDIRECT_URI=http://localhost:3000/callback
+   MCP_SERVER_PORT=3001
+   ```
+
+2. **Build and Run**
+   ```bash
+   # Build the Docker image
+   docker compose build
+
+   # Run in foreground (for stdio MCP communication)
+   docker compose up
+
+   # Or run in background
+   docker compose up -d
+
+   # View logs
+   docker compose logs -f
+
+   # Stop the container
+   docker compose down
+   ```
+
+### What's Included
+
+- **Dockerfile**: Multi-stage Node.js 18 build with TypeScript compilation
+- **docker-compose.yml**: Orchestration with environment variables and data volumes
+- **.dockerignore**: Optimized Docker context
+- **data/**: Persistent volume mount
+
+### Architecture Notes
+
+This MCP server uses **stdio** (standard input/output) for communication, not HTTP. The Docker setup is designed for consistent deployment and easy cloud hosting.
+
+For local development with Claude Desktop, you may find it easier to run directly without Docker:
+```bash
+npm install
+npm run build
+npm start
+```
+
 ## Support
 
 For issues and questions:
@@ -237,6 +287,11 @@ For issues and questions:
 2. Review the error messages from the MCP server
 3. Ensure your OAuth credentials are correctly configured
 4. Verify your access token is valid and not expired
+
+## Repository
+
+Forked from: https://github.com/nissand/whoop-mcp-server-claude
+Your fork: https://github.com/mcannalte/whoop-mcp-server-claude
 
 ## Migration Notice
 
